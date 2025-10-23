@@ -26,16 +26,16 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0; color:var(--text);
+    body{margin:0; color:var(--text);
       font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",Arial,"Apple Color Emoji","Segoe UI Emoji";
-      background:
-        linear-gradient(180deg, var(--bg-2) 0 180px, var(--bg-1) 180px 70%, var(--bg-3) 70% 100%);
+      background: linear-gradient(180deg, var(--bg-2) 0 0, var(--bg-1) 340px 70%, var(--bg-3) 70% 100%);
     }
     .container{max-width:1200px;margin:0 auto;padding:16px;display:grid;gap:16px}
 
     /* Hero */
-    .hero{margin-top:8px;display:grid;gap:10px}
+    .hero{position:relative;margin-top:8px;display:grid;gap:10px;padding:16px 0}
+    .hero::before{content:"";position:absolute;left:50%;transform:translateX(-50%);top:0;width:100vw;height:100%;background:#ffffff;z-index:0;border-bottom:1px solid #eaf0ff}
+    .hero > *{position:relative;z-index:1}
     .hero h1{margin:0;font-weight:800;font-size:clamp(20px,2.6vw,30px);line-height:1.15;color:var(--text)}
     .hero .title-grad{background:linear-gradient(90deg,#0b3aa3, var(--brand-blue));-webkit-background-clip:text;background-clip:text;color:transparent}
     .hero .emoji{background:none;-webkit-background-clip:initial;background-clip:initial;color:inherit;-webkit-text-fill-color:initial}
@@ -57,6 +57,16 @@
     select, input[type=range]{font:inherit}
     select{border:1px solid var(--control-border);border-radius:12px;padding:8px 12px;background:#f8fbff}
 
+    /* Visual-only reordering inside the Controls card */
+    .card[aria-label="Controls"]{display:flex;flex-direction:column}
+    .card[aria-label="Controls"] .section{order:0}
+    .card[aria-label="Controls"] .section:has(#langSel){order:10}
+    .card[aria-label="Controls"] .section:has(#speed){order:20}
+    .card[aria-label="Controls"] .section:has([data-i18n="rulesTitle"]){order:30}
+    .card[aria-label="Controls"] .section:has(#wrap){order:40}
+    .card[aria-label="Controls"] .section:has(#preset){order:50}
+    .card[aria-label="Controls"] .section:has(#play){order:60}
+
     .btn{border:1px solid var(--brand-navy);background:var(--brand-navy);color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;user-select:none;font-weight:800;display:inline-flex;align-items:center;gap:8px}
     .btn[aria-pressed="true"]{background:#0b3aa3}
     .btn.secondary{background:#fff;color:var(--brand-navy);border-color:var(--control-border)}
@@ -77,7 +87,7 @@
     canvas{display:block;width:100%;height:100%;background:#ffffff;touch-action:none}
 
     /* Tooltip for Wrap */
-    .has-tip{position:relative}
+    .has-tip{position:relative; display:inline-flex; align-items:center; gap:10px}
     .has-tip::after{content:attr(data-tip);position:absolute;left:0;top:calc(100% + 6px);background:#111827;color:#fff;border:1px solid #0003;border-radius:8px;padding:6px 8px;font-size:12px;white-space:nowrap;opacity:0;transform:translateY(-4px);transition:opacity .12s ease,transform .12s ease;pointer-events:none;z-index:10}
     .has-tip:hover::after,.has-tip:focus-within::after{opacity:1;transform:translateY(0)}
 
@@ -89,6 +99,19 @@
 
     /* Utils */
     .accent{color:var(--brand-orange);font-weight:800}
+    .sr-only{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    /* Mobile-first tweaks */
+    @media (max-width: 700px){
+      .container{padding:12px}
+      .row{gap:8px}
+      .slider-wrap{flex-wrap:wrap}
+      #speed{width:100%}
+      .btn{flex:1;justify-content:center;min-width:calc(50% - 8px)}
+      .board-inner{padding:8px}
+      .board{border-radius:12px}
+      .card{border-radius:14px}
+    }
     .sr-only{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
   </style>
 </head>
@@ -123,9 +146,12 @@
           </div>
         </div>
         <div class="section">
-          <div class="row has-tip" id="wrapGroup" data-tip="Wrap: connects edges (toroidal). Right↔left, top↔bottom. Press W to toggle.">
-            <label class="label" for="wrap" data-i18n="wrap">Wrap</label>
-            <input id="wrap" type="checkbox" aria-label="Wrap at edges (W)" />
+          <div class="row">
+            <div class="has-tip" id="wrapGroup" data-tip="Wrap: connects edges (toroidal). Right↔left, top↔bottom. Press W to toggle.">
+              <label class="label" for="wrap" data-i18n="wrap">Wrap</label>
+              <input id="wrap" type="checkbox" aria-label="Wrap at edges (W)" />
+            </div>
+            
           </div>
         </div>
         <div class="section">
@@ -215,9 +241,9 @@
       en:{
         heroTitle:"Learning is the smartest way of life - L&D Rockets",
         heroSubtitle:"Can complexity, evolution and life emerge from the simplest rules? Can we create life?",
-        heroIntro:"<strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation. <strong>Create a pattern and observe its evolution!</strong>",
+        heroIntro:"<strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation.",
         language:"Language", start:"Start", pause:"Pause", step:"Step", clear:"Clear", random:"Random",
-        speed:"Speed", wrap:"Wrap", grid:"Grid", gen:"Gen", alive:"Alive", linksTitle:"Learn more",
+        speed:"Speed", wrap:"Wrap (Border)", grid:"Grid", gen:"Gen", alive:"Alive", linksTitle:"Learn more",
         linkWiki:"What is the Conway's Game of Life",
         linkLinkedIn:"Fran Mondaca Linkedin",
         linkInvent:"Inventing the Game of Life",
@@ -233,9 +259,9 @@
       es:{
         heroTitle:"Aprender es la forma más inteligente de vivir - L&D Rockets",
         heroSubtitle:"¿Pueden la complejidad, la evolución y la vida surgir de las reglas más simples? ¿Podemos crear vida?",
-        heroIntro:"<strong>¿Por qué hago esto?</strong> Porque la filosofía y el aprendizaje viven en la lógica de la matemática, porque el código y la IA encienden mi curiosidad humana, y porque las emociones me guían. Estoy impulsado por el inigualable poder de probar aquello que nunca antes había intentado. Te invito a usar tu imaginación y esta metáfora para reflexionar. Esto es solo un artefacto de provocación intelectual.<strong>¡Crea un patrón y observa su evolución!</strong>",
+        heroIntro:"<strong>¿Por qué hago esto?</strong> Porque la filosofía y el aprendizaje viven en la lógica de la matemática, porque el código y la IA encienden mi curiosidad humana, y porque las emociones me guían. Estoy impulsado por el inigualable poder de probar aquello que nunca antes había intentado. Te invito a usar tu imaginación y esta metáfora para reflexionar. Esto es solo un artefacto de provocación intelectual.",
         language:"Idioma", start:"Iniciar", pause:"Pausa", step:"Paso", clear:"Limpiar", random:"Azar",
-        speed:"Velocidad", wrap:"Envolver", grid:"Cuadrícula", gen:"Gen", alive:"Vivas", linksTitle:"Más información",
+        speed:"Velocidad", wrap:"Envolver (Borde/Contorno)", grid:"Cuadrícula", gen:"Gen", alive:"Vivas", linksTitle:"Más información",
         linkWiki:"¿Qué es el Juego de la Vida?",
         linkLinkedIn:"LinkedIn de Fran Mondaca",
         linkInvent:"Inventando el Juego de la Vida",
@@ -251,9 +277,9 @@
       ca:{
         heroTitle:"Aprendre és la manera més intel·ligent de viure - L&D Rockets",
         heroSubtitle:"Pot la complexitat, l’evolució i la vida emergir de les regles més simples? Podem crear vida?",
-        heroIntro:"<strong>Per què ho faig?</strong> Perquè la filosofia i l’aprenentatge viuen en la lògica de les matemàtiques; perquè el codi i l’IA encenen la meva curiositat humana; i perquè les emocions em guien. M’empeny el poder únic de provar allò que mai no havia intentat. Et convido a usar la teva imaginació i aquesta metàfora per reflexionar. Això és només un artefacte de provocació intel·lectual.<strong>Crea un model i observa com evoluciona!</strong>",
+        heroIntro:"<strong>Per què ho faig?</strong> Perquè la filosofia i l’aprenentatge viuen en la lògica de les matemàtiques; perquè el codi i l’IA encenen la meva curiositat humana; i perquè les emocions em guien. M’empeny el poder únic de provar allò que mai no havia intentat. Et convido a usar la teva imaginació i aquesta metàfora per reflexionar. Això és només un artefacte de provocació intel·lectual.",
         language:"Idioma", start:"Inicia", pause:"Pausa", step:"Pas", clear:"Neteja", random:"Aleatori",
-        speed:"Velocitat", wrap:"Contínua", grid:"Graella", gen:"Gen", alive:"Vives", linksTitle:"Més informació",
+        speed:"Velocitat", wrap:"Contínua (Vora/Contorn)", grid:"Graella", gen:"Gen", alive:"Vives", linksTitle:"Més informació",
         linkWiki:"Què és el Joc de la Vida?",
         linkLinkedIn:"LinkedIn de Fran Mondaca",
         linkInvent:"Inventant el Joc de la Vida",
@@ -269,9 +295,9 @@
       fr:{
         heroTitle:"Apprendre est la manière la plus intelligente de vivre - L&D Rockets",
         heroSubtitle:"La complexité, l’évolution et la vie peuvent-elles émerger des règles les plus simples ? Pouvons-nous créer la vie ?",
-        heroIntro:"<strong>Pourquoi je fais cela ?</strong> Parce que la philosophie et l’apprentissage vivent dans la logique des mathématiques ; parce que le code et l’IA éveillent ma curiosité humaine ; et parce que les émotions me guident. Je suis porté par la puissance unique d’essayer ce que je n’avais jamais tenté. Je vous invite à utiliser votre imagination et cette métaphore pour réfléchir. Ce n’est qu’un artefact de provocation intellectuelle.<strong>Créez un modèle et observez son évolution!</strong>",
+        heroIntro:"<strong>Pourquoi je fais cela ?</strong> Parce que la philosophie et l’apprentissage vivent dans la logique des mathématiques ; parce que le code et l’IA éveillent ma curiosité humaine ; et parce que les émotions me guident. Je suis porté par la puissance unique d’essayer ce que je n’avais jamais tenté. Je vous invite à utiliser votre imagination et cette métaphore pour réfléchir. Ce n’est qu’un artefact de provocation intellectuelle.",
         language:"Langue", start:"Démarrer", pause:"Pause", step:"Pas", clear:"Effacer", random:"Aléatoire",
-        speed:"Vitesse", wrap:"Boucler", grid:"Grille", gen:"Gén", alive:"Vivantes", linksTitle:"En savoir plus",
+        speed:"Vitesse", wrap:"Boucler (Bord/Contour)", grid:"Grille", gen:"Gén", alive:"Vivantes", linksTitle:"En savoir plus",
         linkWiki:"Qu’est-ce que le Jeu de la vie ?",
         linkLinkedIn:"LinkedIn de Fran Mondaca",
         linkInvent:"Inventer le Jeu de la vie",
