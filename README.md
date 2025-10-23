@@ -134,7 +134,7 @@
     <section class="hero" aria-label="Intro">
       <h1><span class="title-grad" data-i18n="heroTitle">Learning is the smartest way of life - L&D Rockets</span> <span class="emoji" aria-hidden="true">🚀</span></h1>
       <h2 data-i18n="heroSubtitle">Can complexity, evolution and life emerge from the simplest rules? Can we create life?</h2>
-      <p class="intro" data-i18n="heroIntro" data-i18n-html="true"><strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation. <strong>Why do I do this?</strong></p>
+      <p class="intro" data-i18n="heroIntro" data-i18n-html="true"><strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation. </p>
     </section>
 
     <section class="layout" aria-label="App layout">
@@ -255,7 +255,7 @@
       en:{
         heroTitle:"Learning is the smartest way of life - L&D Rockets",
         heroSubtitle:"Can complexity, evolution and life emerge from the simplest rules? Can we create life?",
-        heroIntro:"<strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation.",
+        heroIntro:"<strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation.<strong> Why do I do this?</strong> ",
         language:"Language", start:"Start", pause:"Pause", step:"Step", clear:"Clear", random:"Random",
         speed:"Speed", wrap:"Wrap (Border)", grid:"Grid", gen:"Gen", alive:"Alive", linksTitle:"Learn more",
         linkWiki:"What is the Conway's Game of Life",
