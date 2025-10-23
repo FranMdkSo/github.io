@@ -215,7 +215,7 @@
       en:{
         heroTitle:"Learning is the smartest way of life - L&D Rockets",
         heroSubtitle:"Can complexity, evolution and life emerge from the simplest rules? Can we create life?",
-        heroIntro:"<strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation.",
+        heroIntro:"<strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation. <strong>Create a pattern and observe its evolution!</strong>",
         language:"Language", start:"Start", pause:"Pause", step:"Step", clear:"Clear", random:"Random",
         speed:"Speed", wrap:"Wrap", grid:"Grid", gen:"Gen", alive:"Alive", linksTitle:"Learn more",
         linkWiki:"What is the Conway's Game of Life",
@@ -233,7 +233,7 @@
       es:{
         heroTitle:"Aprender es la forma más inteligente de vivir - L&D Rockets",
         heroSubtitle:"¿Pueden la complejidad, la evolución y la vida surgir de las reglas más simples? ¿Podemos crear vida?",
-        heroIntro:"<strong>¿Por qué hago esto?</strong> Porque la filosofía y el aprendizaje viven en la lógica de la matemática, porque el código y la IA encienden mi curiosidad humana, y porque las emociones me guían. Estoy impulsado por el inigualable poder de probar aquello que nunca antes había intentado. Te invito a usar tu imaginación y esta metáfora para reflexionar. Esto es solo un artefacto de provocación intelectual.",
+        heroIntro:"<strong>¿Por qué hago esto?</strong> Porque la filosofía y el aprendizaje viven en la lógica de la matemática, porque el código y la IA encienden mi curiosidad humana, y porque las emociones me guían. Estoy impulsado por el inigualable poder de probar aquello que nunca antes había intentado. Te invito a usar tu imaginación y esta metáfora para reflexionar. Esto es solo un artefacto de provocación intelectual.<strong>¡Crea un patrón y observa su evolución!</strong>",
         language:"Idioma", start:"Iniciar", pause:"Pausa", step:"Paso", clear:"Limpiar", random:"Azar",
         speed:"Velocidad", wrap:"Envolver", grid:"Cuadrícula", gen:"Gen", alive:"Vivas", linksTitle:"Más información",
         linkWiki:"¿Qué es el Juego de la Vida?",
@@ -251,7 +251,7 @@
       ca:{
         heroTitle:"Aprendre és la manera més intel·ligent de viure - L&D Rockets",
         heroSubtitle:"Pot la complexitat, l’evolució i la vida emergir de les regles més simples? Podem crear vida?",
-        heroIntro:"<strong>Per què ho faig?</strong> Perquè la filosofia i l’aprenentatge viuen en la lògica de les matemàtiques; perquè el codi i l’IA encenen la meva curiositat humana; i perquè les emocions em guien. M’empeny el poder únic de provar allò que mai no havia intentat. Et convido a usar la teva imaginació i aquesta metàfora per reflexionar. Això és només un artefacte de provocació intel·lectual.",
+        heroIntro:"<strong>Per què ho faig?</strong> Perquè la filosofia i l’aprenentatge viuen en la lògica de les matemàtiques; perquè el codi i l’IA encenen la meva curiositat humana; i perquè les emocions em guien. M’empeny el poder únic de provar allò que mai no havia intentat. Et convido a usar la teva imaginació i aquesta metàfora per reflexionar. Això és només un artefacte de provocació intel·lectual.<strong>Crea un model i observa com evoluciona!</strong>",
         language:"Idioma", start:"Inicia", pause:"Pausa", step:"Pas", clear:"Neteja", random:"Aleatori",
         speed:"Velocitat", wrap:"Contínua", grid:"Graella", gen:"Gen", alive:"Vives", linksTitle:"Més informació",
         linkWiki:"Què és el Joc de la Vida?",
@@ -269,7 +269,7 @@
       fr:{
         heroTitle:"Apprendre est la manière la plus intelligente de vivre - L&D Rockets",
         heroSubtitle:"La complexité, l’évolution et la vie peuvent-elles émerger des règles les plus simples ? Pouvons-nous créer la vie ?",
-        heroIntro:"<strong>Pourquoi je fais cela ?</strong> Parce que la philosophie et l’apprentissage vivent dans la logique des mathématiques ; parce que le code et l’IA éveillent ma curiosité humaine ; et parce que les émotions me guident. Je suis porté par la puissance unique d’essayer ce que je n’avais jamais tenté. Je vous invite à utiliser votre imagination et cette métaphore pour réfléchir. Ce n’est qu’un artefact de provocation intellectuelle.",
+        heroIntro:"<strong>Pourquoi je fais cela ?</strong> Parce que la philosophie et l’apprentissage vivent dans la logique des mathématiques ; parce que le code et l’IA éveillent ma curiosité humaine ; et parce que les émotions me guident. Je suis porté par la puissance unique d’essayer ce que je n’avais jamais tenté. Je vous invite à utiliser votre imagination et cette métaphore pour réfléchir. Ce n’est qu’un artefact de provocation intellectuelle.<strong>Créez un modèle et observez son évolution!</strong>",
         language:"Langue", start:"Démarrer", pause:"Pause", step:"Pas", clear:"Effacer", random:"Aléatoire",
         speed:"Vitesse", wrap:"Boucler", grid:"Grille", gen:"Gén", alive:"Vivantes", linksTitle:"En savoir plus",
         linkWiki:"Qu’est-ce que le Jeu de la vie ?",
