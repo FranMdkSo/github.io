@@ -44,7 +44,7 @@
 
     /* Layout */
     .layout{display:grid;grid-template-columns:360px 1fr;gap:16px;margin-top:6px}
-    @media (max-width: 900px){ .layout{grid-template-columns:1fr} }
+    @media (max-width: 900px){ .layout{grid-template-columns:1fr} .board-card{order:-1} }
 
     /* Cards */
     .card{background:var(--card);border:1px solid var(--control-border);border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,.08)}
@@ -82,8 +82,8 @@
     .board-header{position:absolute;left:12px;top:12px;display:flex;gap:8px;z-index:2}
     .pill{background:var(--pill-bg);color:var(--pill-text);border:1px solid var(--control-border);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
 
-    .board-inner{padding:10px}
-    .board{position:relative;border-radius:16px;border:1px solid var(--control-border);overflow:hidden}
+    .board-inner{padding:0;display:flex;justify-content:center}
+    .board{position:relative;border-radius:16px;border:1px solid var(--control-border);overflow:hidden;display:inline-block}
     canvas{display:block;width:100%;height:100%;background:#ffffff;touch-action:none}
 
     /* Tooltip for Wrap */
@@ -101,8 +101,7 @@
     .patterns{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:14px;padding:14px}
     .pattern{border:1px solid var(--control-border);border-radius:12px;padding:10px}
     .pattern figcaption{margin-top:8px;font-weight:700;color:var(--muted)}
-    .pattern svg{width:100%;height:auto;display:block;background:repeating-linear-gradient(0deg,#fff, #fff 14px, #e9f2ff 14px, #e9f2ff 15px),
-                                   repeating-linear-gradient(90deg,#fff, #fff 14px, #e9f2ff 14px, #e9f2ff 15px);}
+    .pattern svg{width:100%;height:auto;display:block;background-image:linear-gradient(to right,#e9f2ff 1px,transparent 1px),linear-gradient(to bottom,#e9f2ff 1px,transparent 1px);background-size:15px 15px;background-color:#fff}
     .cell{fill:var(--cell)}
     @media (max-width:640px){ .patterns{grid-template-columns:1fr} }
 
@@ -135,7 +134,7 @@
     <section class="hero" aria-label="Intro">
       <h1><span class="title-grad" data-i18n="heroTitle">Learning is the smartest way of life - L&D Rockets</span> <span class="emoji" aria-hidden="true">🚀</span></h1>
       <h2 data-i18n="heroSubtitle">Can complexity, evolution and life emerge from the simplest rules? Can we create life?</h2>
-      <p class="intro" data-i18n="heroIntro" data-i18n-html="true"><strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation.</p>
+      <p class="intro" data-i18n="heroIntro" data-i18n-html="true"><strong>Why do I do this?</strong> Because philosophy and learning live in the logic of mathematics; because code and AI spark my human curiosity; and because emotions guide me. I’m driven by the unique power of trying what I’ve never attempted before. I invite you to use your imagination and this metaphor to reflect. This is just an artefact of intellectual provocation. <strong>Why do I do this?</strong></p>
     </section>
 
     <section class="layout" aria-label="App layout">
@@ -380,14 +379,14 @@
     function updateGen(){ genVal.textContent = String(generation); }
 
     function resizeCanvas(){
-      const wrap = canvas.parentElement;
-      const cssW = Math.max(300, wrap.clientWidth);
-      const cssH = Math.max(260, Math.min(720, window.innerHeight - 260));
-      const sizeX = Math.max(6, Math.floor(cssW / cols));
-      const sizeY = Math.max(6, Math.floor(cssH / rows));
+      const holder = canvas.parentElement; // .board
+      const availW = holder.parentElement ? holder.parentElement.clientWidth : holder.clientWidth;
+      const safeW = Math.max(280, Math.min(window.innerWidth - 32, availW));
+      const safeH = Math.max(240, Math.min(720, window.innerHeight - 240));
+      const sizeX = Math.max(6, Math.floor(safeW / cols));
+      const sizeY = Math.max(6, Math.floor(safeH / rows));
       cellSize = Math.max(6, Math.min(sizeX, sizeY));
-      gridW = cellSize * cols;
-      gridH = cellSize * rows;
+      gridW = cellSize * cols; gridH = cellSize * rows;
       canvas.style.width = gridW + 'px';
       canvas.style.height = gridH + 'px';
       dpr = window.devicePixelRatio || 1;
