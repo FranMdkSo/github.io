@@ -1,5 +1,3 @@
-[conways_game_of_life_single_file (Good3).html](https://github.com/user-attachments/files/23092941/conways_game_of_life_single_file.Good3.html)
-<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
