@@ -28,7 +28,7 @@
     html,body{height:100%}
     body{margin:0; color:var(--text);
       font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",Arial,"Apple Color Emoji","Segoe UI Emoji";
-      background: linear-gradient(180deg, var(--bg-2) 0 0, var(--bg-1) 340px 70%, var(--bg-3) 70% 100%);
+      background: linear-gradient(180deg, var(--bg-2) 0 360px, var(--bg-1) 360px 62vh, var(--bg-3) 62vh 100%);
     }
     .container{max-width:1200px;margin:0 auto;padding:16px;display:grid;gap:16px}
 
@@ -91,6 +91,21 @@
     .has-tip::after{content:attr(data-tip);position:absolute;left:0;top:calc(100% + 6px);background:#111827;color:#fff;border:1px solid #0003;border-radius:8px;padding:6px 8px;font-size:12px;white-space:nowrap;opacity:0;transform:translateY(-4px);transition:opacity .12s ease,transform .12s ease;pointer-events:none;z-index:10}
     .has-tip:hover::after,.has-tip:focus-within::after{opacity:1;transform:translateY(0)}
 
+    /* Patterns modal */
+    .modal{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(2,6,23,.46); z-index:1000}
+    .modal[hidden]{display:none}
+    .modal-card{background:#fff;border:1px solid var(--control-border);border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.18);width:min(900px,96vw);max-height:90vh;overflow:auto}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #eaf0ff}
+    .modal-header h3{margin:0;font-size:18px;color:var(--brand-navy)}
+    .modal-close{background:#fff;border:1px solid var(--control-border);border-radius:10px;padding:6px 10px;font-weight:800;cursor:pointer}
+    .patterns{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:14px;padding:14px}
+    .pattern{border:1px solid var(--control-border);border-radius:12px;padding:10px}
+    .pattern figcaption{margin-top:8px;font-weight:700;color:var(--muted)}
+    .pattern svg{width:100%;height:auto;display:block;background:repeating-linear-gradient(0deg,#fff, #fff 14px, #e9f2ff 14px, #e9f2ff 15px),
+                                   repeating-linear-gradient(90deg,#fff, #fff 14px, #e9f2ff 14px, #e9f2ff 15px);}
+    .cell{fill:var(--cell)}
+    @media (max-width:640px){ .patterns{grid-template-columns:1fr} }
+
     /* Links */
     .links{display:grid;gap:8px}
     .links h3{margin:0;font-size:16px;color:var(--brand-navy)}
@@ -151,7 +166,7 @@
               <label class="label" for="wrap" data-i18n="wrap">Wrap</label>
               <input id="wrap" type="checkbox" aria-label="Wrap at edges (W)" />
             </div>
-            
+            <button id="patternsBtn" class="btn secondary" type="button" data-i18n="patternsBtn" aria-haspopup="dialog">Patterns</button>
           </div>
         </div>
         <div class="section">
@@ -249,6 +264,7 @@
         linkInvent:"Inventing the Game of Life",
         linkNice:"Beautiful explanation of Conway's Game",
         wrapTip:"Wrap: connects edges (toroidal). Right↔left, top↔bottom. Press W to toggle.",
+        patternsBtn:"Patterns", patternsTitle:"Visual guide — patterns", pGlider:"Glider", pLWSS:"Lightweight spaceship", pPulsar:"Pulsar", pGun:"Gosper glider gun",
         rulesTitle:"TWO SIMPLE RULES OF THE GAME",
         rule1:"1. For a live cell to <strong class=\"accent\">SURVIVE</strong>, it must have 2 or 3 live neighbors. with fewer than 2 or more than 3, it <strong class=\"accent\">DIES</strong>.",
         rule2:"2. if a dead cell has exactly 3 live neighbors, it is <strong class=\"accent\">BORN</strong> (comes live).",
@@ -267,6 +283,7 @@
         linkInvent:"Inventando el Juego de la Vida",
         linkNice:"Bonita explicación del juego de Conway",
         wrapTip:"Envolver: conecta los bordes (toroide). Derecha↔izquierda, arriba↔abajo. Pulsa W para alternar.",
+        patternsBtn:"Patrones", patternsTitle:"Guía visual — patrones", pGlider:"Planeador", pLWSS:"Nave ligera (LWSS)", pPulsar:"Púlsar", pGun:"Cañón de planeadores",
         rulesTitle:"DOS SIMPLES REGLAS DEL JUEGO",
         rule1:"1. Para que una célula viva <strong class=\"accent\">SOBREVIVA</strong>, debe tener 2 o 3 vecinas vivas. Con menos de 2 o más de 3, <strong class=\"accent\">MUERE</strong>.",
         rule2:"2. Si una célula muerta tiene exactamente 3 vecinas vivas, <strong class=\"accent\">NACE</strong> (cobra vida).",
@@ -285,6 +302,7 @@
         linkInvent:"Inventant el Joc de la Vida",
         linkNice:"Bona explicació del joc de Conway",
         wrapTip:"Contínua: connecta les vores (torus). Dreta↔esquerra, dalt↔baix. Prem W per alternar.",
+        patternsBtn:"Patrons", patternsTitle:"Guia visual — patrons", pGlider:"Planejador (Glider)", pLWSS:"Nau lleugera (LWSS)", pPulsar:"Púlsar", pGun:"Canó de planejadors",
         rulesTitle:"DUES REGLES SIMPLES DEL JOC",
         rule1:"1. Perquè una cèl·lula viva <strong class=\"accent\">SOBREVIVI</strong>, ha de tenir 2 o 3 veïnes vives. Amb menys de 2 o més de 3, <strong class=\"accent\">MOR</strong>.",
         rule2:"2. Si una cèl·lula morta té exactament 3 veïnes vives, <strong class=\"accent\">NEIX</strong> (pren vida).",
@@ -302,7 +320,8 @@
         linkLinkedIn:"LinkedIn de Fran Mondaca",
         linkInvent:"Inventer le Jeu de la vie",
         linkNice:"Belle explication du jeu de Conway",
-        wrapTip:"Boucler : relie les bords (tore). Droite↔gauche, haut↔bas. Appuyez sur W pour basculer.",
+        wrapTip:"Boucler : relie les bords (tore). Droite↔gauche, haut↔bas. Appuyez sur W pour basculer.",
+        patternsBtn:"Motifs", patternsTitle:"Guide visuel — motifs", pGlider:"Planeur", pLWSS:"Vaisseau léger (LWSS)", pPulsar:"Pulsar", pGun:"Canon à planeurs",
         rulesTitle:"DEUX RÈGLES SIMPLES DU JEU",
         rule1:"1. Pour qu’une cellule vivante <strong class=\"accent\">SURVIVE</strong>, elle doit avoir 2 ou 3 voisines vivantes. Avec moins de 2 ou plus de 3, elle <strong class=\"accent\">MEURT</strong>.",
         rule2:"2. Si une cellule morte a exactement 3 voisines vivantes, elle <strong class=\"accent\">NAÎT</strong> (prend vie).",
@@ -523,6 +542,21 @@
         draw();
       }
       requestAnimationFrame(loop);
+    // Patterns modal (deferred binding so it works on GitHub Pages DOM order)
+    window.addEventListener('load', ()=>{
+      const btn = document.getElementById('patternsBtn');
+      const modal = document.getElementById('patternsModal');
+      const close = document.getElementById('patternsClose');
+      if(!btn || !modal) return;
+      const hide = ()=>{ modal.setAttribute('hidden',''); document.body.style.overflow=''; };
+      const show = ()=>{ modal.removeAttribute('hidden'); document.body.style.overflow='hidden'; };
+      btn.addEventListener('click', show);
+      if(close) close.addEventListener('click', hide);
+      modal.addEventListener('click', (e)=>{ if(e.target===modal) hide(); });
+      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !modal.hasAttribute('hidden')) hide(); });
+      // re-apply i18n now that modal elements exist
+      applyI18n(document.documentElement.lang || 'en');
+    });
     }
 
     // Init
@@ -535,5 +569,115 @@
     requestAnimationFrame(loop);
   })();
   </script>
+  <!-- Patterns Modal -->
+  <div id="patternsModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="patternsTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="patternsTitle" data-i18n="patternsTitle">Visual guide — patterns</h3>
+        <button class="modal-close" type="button" id="patternsClose" aria-label="Close">✕</button>
+      </div>
+      <div class="patterns">
+        <figure class="pattern">
+          <svg viewBox="0 0 75 75" aria-labelledby="p1t" role="img" shape-rendering="crispEdges">
+            <!-- Glider 5x5 -->
+            <rect class="cell" x="45" y="0" width="15" height="15"/>
+            <rect class="cell" x="0" y="15" width="15" height="15"/>
+            <rect class="cell" x="45" y="15" width="15" height="15"/>
+            <rect class="cell" x="15" y="30" width="15" height="15"/>
+            <rect class="cell" x="30" y="30" width="15" height="15"/>
+            <rect class="cell" x="45" y="30" width="15" height="15"/>
+          </svg>
+          <figcaption id="p1t" data-i18n="pGlider">Planeador (Glider)</figcaption>
+        </figure>
+        <figure class="pattern">
+          <svg viewBox="0 0 90 75" aria-labelledby="p2t" role="img" shape-rendering="crispEdges">
+            <!-- Lightweight spaceship (simplified 6x5) -->
+            <!-- top row -->
+            <rect class="cell" x="15" y="0" width="15" height="15"/>
+            <rect class="cell" x="30" y="0" width="15" height="15"/>
+            <rect class="cell" x="45" y="0" width="15" height="15"/>
+            <rect class="cell" x="60" y="0" width="15" height="15"/>
+            <!-- row 2 -->
+            <rect class="cell" x="0" y="15" width="15" height="15"/>
+            <rect class="cell" x="60" y="15" width="15" height="15"/>
+            <!-- row 3 -->
+            <rect class="cell" x="60" y="30" width="15" height="15"/>
+            <!-- row 4 -->
+            <rect class="cell" x="0" y="45" width="15" height="15"/>
+            <rect class="cell" x="45" y="45" width="15" height="15"/>
+          </svg>
+          <figcaption id="p2t" data-i18n="pLWSS">Nave ligera (LWSS)</figcaption>
+        </figure>
+        <figure class="pattern">
+          <svg viewBox="0 0 150 150" aria-labelledby="p3t" role="img" shape-rendering="crispEdges">
+            <!-- Pulsar 13x13 (indicative arms of 3) -->
+            <!-- horizontal arms -->
+            <g>
+              <rect class="cell" x="30" y="15" width="15" height="15"/>
+              <rect class="cell" x="45" y="15" width="15" height="15"/>
+              <rect class="cell" x="60" y="15" width="15" height="15"/>
+
+              <rect class="cell" x="90" y="15" width="15" height="15"/>
+              <rect class="cell" x="105" y="15" width="15" height="15"/>
+              <rect class="cell" x="120" y="15" width="15" height="15"/>
+            </g>
+            <g>
+              <rect class="cell" x="30" y="120" width="15" height="15"/>
+              <rect class="cell" x="45" y="120" width="15" height="15"/>
+              <rect class="cell" x="60" y="120" width="15" height="15"/>
+
+              <rect class="cell" x="90" y="120" width="15" height="15"/>
+              <rect class="cell" x="105" y="120" width="15" height="15"/>
+              <rect class="cell" x="120" y="120" width="15" height="15"/>
+            </g>
+            <!-- vertical arms -->
+            <g>
+              <rect class="cell" x="15" y="30" width="15" height="15"/>
+              <rect class="cell" x="15" y="45" width="15" height="15"/>
+              <rect class="cell" x="15" y="60" width="15" height="15"/>
+
+              <rect class="cell" x="15" y="90" width="15" height="15"/>
+              <rect class="cell" x="15" y="105" width="15" height="15"/>
+              <rect class="cell" x="15" y="120" width="15" height="15"/>
+            </g>
+            <g>
+              <rect class="cell" x="135" y="30" width="15" height="15"/>
+              <rect class="cell" x="135" y="45" width="15" height="15"/>
+              <rect class="cell" x="135" y="60" width="15" height="15"/>
+
+              <rect class="cell" x="135" y="90" width="15" height="15"/>
+              <rect class="cell" x="135" y="105" width="15" height="15"/>
+              <rect class="cell" x="135" y="120" width="15" height="15"/>
+            </g>
+          </svg>
+          <figcaption id="p3t" data-i18n="pPulsar">Púlsar (oscillator)</figcaption>
+        </figure>
+        <figure class="pattern">
+          <svg viewBox="0 0 180 120" aria-labelledby="p4t" role="img" shape-rendering="crispEdges">
+            <!-- Gosper glider gun (very simplified suggestive layout) -->
+            <g>
+              <!-- left block -->
+              <rect class="cell" x="15" y="45" width="15" height="15"/>
+              <rect class="cell" x="30" y="45" width="15" height="15"/>
+              <rect class="cell" x="15" y="60" width="15" height="15"/>
+              <rect class="cell" x="30" y="60" width="15" height="15"/>
+              <!-- right block -->
+              <rect class="cell" x="135" y="45" width="15" height="15"/>
+              <rect class="cell" x="150" y="45" width="15" height="15"/>
+              <rect class="cell" x="135" y="60" width="15" height="15"/>
+              <rect class="cell" x="150" y="60" width="15" height="15"/>
+              <!-- central nozzle suggestion -->
+              <rect class="cell" x="75" y="45" width="15" height="15"/>
+              <rect class="cell" x="90" y="45" width="15" height="15"/>
+              <rect class="cell" x="90" y="60" width="15" height="15"/>
+              <rect class="cell" x="105" y="52.5" width="15" height="15"/>
+            </g>
+          </svg>
+          <figcaption id="p4t" data-i18n="pGun">Cañón de planeadores</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
